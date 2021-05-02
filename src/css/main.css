@@ -1,0 +1,108 @@
+/* =================
+Google fonts
+================= */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Megrim&display=swap');
+
+/* ./your-css-folder/styles.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* =================
+Font awsome icons
+================= */
+i {
+    @apply 
+    text-headings
+}
+
+/* =================
+Home page
+================= */
+
+/* ================= mobile menu ================= */
+.mobile-menu-open {
+    height: 400px !important;
+    padding: 1rem;
+    transition: all 0.7s ease-in-out;
+}
+
+/* ================= hero image ================= */
+#hero-image {
+    background: url('/media/hero-image-one.jpg');
+    background-size: cover;
+    height: 300px;
+    width: auto;
+    border-radius: 10px;
+}
+
+#hero-image-lg-one {
+    background: url('/media/hero-image-one.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 185px;
+    width: 395px;
+    border-radius: 10px;
+}
+
+#hero-image-lg-two {
+    background: url('/media/hero-image-two.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 185px;
+    width: 395px;
+    border-radius: 10px;
+}
+
+@screen lg {
+#hero-image-lg-one, #hero-image-lg-two {
+    width:500px;
+}
+}
+
+#customer-review-image {
+    background: url('/media/customer-review.jpg');
+    background-size: cover;
+    border-radius: 50%;
+    height: 135px;
+    width: 135px;
+}
+
+#shop-yoga-image {
+    background: url('/media/yoga-mat.jpg');
+    background-size: cover;
+    height: 250px;
+    width: auto;
+    border-radius: 10px;
+}
+/* =================
+Headings styles
+================= */
+h1,h2,h3,h4,h5,h6 {
+    @apply
+    font-alt-font
+    text-headings;
+}
+p {
+    @apply
+    text-text;
+}
+
+span {
+    @apply
+    font-alt-font;
+}
+
+/* =================
+Products page
+================= */
+#product-card {
+    padding: 10px 0 10px 0;
+}
+#product-card p {
+    @apply
+    text-headings;
+}

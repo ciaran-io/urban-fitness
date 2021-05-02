@@ -1,0 +1,53 @@
+<div class="grid grid-rows-2 lg:hidden">
+    <!-- mobile header -->
+    <div
+        class="grid items-center justify-between w-full grid-flow-col px-3 py-2"
+    >
+        <!-- mobile menu button -->
+        <div>
+            <button id="mobile-menu-button">
+                <span id="icon-menu-open">
+                    <i class="fas fa-align-left fa-lg w-min"></i>
+                </span>
+                <!-- mobile icon closed -->
+                <span id="icon-menu-close" class="hidden">
+                    <i class="fas fa-times fa-lg"></i>
+                </span>
+            </button>
+        </div>
+        <div>
+            <a href="http://" class="text-3xl font-logo">Urban Fitness</a>
+        </div>
+        <!-- search button -->
+        <div>
+            <button id="search-button">
+                <span>
+                    <i class="fas fa-search fa-lg"></i>
+                </span>
+            </button>
+        </div>
+    </div>
+    <!-- serach input form -->
+    <div class="w-full px-3">
+        <form action="" class="h-10 p-3 border-2 rounded-md border-headings"></form>
+    </div>
+    <!-- mobile menu -->
+    <div
+        id="mobile-menu"
+        class="h-0 mx-3 overflow-hidden text-white transition duration-500 ease-in-out rounded-md bg-headings"
+    >
+        <div class="flex justify-between pb-5">
+            <a href="http://">Shop</a>
+            <i class="text-white fas fa-chevron-down fl-lg"></i>
+        </div>
+        <div class="grid gap-1">
+            <a href="http://" class="pb-2 border-b-2 border-buttons">Juicers</a>
+            <a href="http://" class="pb-2 border-b-2 border-buttons"
+                >Gym equipment</a
+            >
+            <a href="http://" class="pb-2 border-b-2 border-buttons"
+                >Health supplements</a
+            >
+        </div>
+    </div>
+</div>

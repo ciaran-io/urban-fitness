@@ -1,0 +1,155 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<!-- hero image mobile -->
+<div id="hero-image" class="mx-2 mt-2 mb-7 lg:hidden"></div>
+<!-- hero container medium to large devices -->
+<div class="hidden grid-flow-col gap-8 px-4 mx-auto mb-20 lg:grid">
+    <div class="grid gap-5 h-[min-content] xl:w-3/4">
+        <h1 class="text-5xl">Become the healthiest version of you</h1>
+        <p class="w-3/4">
+            Browse our range of healthy recipes, workouts and world class
+            fitness equipment
+        </p>
+        <a href="" class="w-1/3 px-2 py-2 rounded-md bg-buttons">
+            <span class="block w-full text-center">Get started</span>
+        </a>
+    </div>
+    <div class="grid gap-10 place-self-end">
+        <div id="hero-image-lg-one"></div>
+        <div id="hero-image-lg-two"></div>
+    </div>
+</div>
+<!-- main content -->
+<main class="">
+    <div class="mb-14 lg:mb-20">
+        <h1 class="text-3xl text-center">
+            Our <span class="pb-2 border-b-2 border-headings">Programs</span>
+        </h1>
+    </div>
+    <section class="ml-4 lg:ml-0 mb-14 lg:mb-20">
+        <div class="overflow-auto">
+            <div class="grid grid-flow-col gap-6 mb-5 text-left lg:text-center">
+                <!-- card 1 -->
+                <div
+                    class="grid w-full gap-2 px-4 pt-4 pb-3 rounded-lg shadow-lg h-[150px] lg:h-[200px] min-w-[250px]"
+                >
+                    <i class="text-center fas fa-dumbbell fa-lg"></i>
+                    <h2>Muscle Building</h2>
+                    <p class="text-xs">
+                        Improve mucsle mass with the right excercises
+                    </p>
+                </div>
+                <!-- card 2 -->
+                <div
+                    class="relative grid w-full content-start gap-3 px-4 pt-4 rounded-lg shadow-lg pl h-[220px] min-w-[250px]"
+                >
+                    <i class="text-center fas fa-running fa-lg"></i>
+                    <h2>Cardio Fitness</h2>
+                    <p class="text-xs">
+                        Improve cardio fitness with the right excercises
+                    </p>
+                    <div class="absolute w-full bottom-3">
+                        <a
+                            href="http://"
+                            class="block w-4/5 py-1 mx-auto text-sm text-center border-2 rounded-full lg:w-1/2 border-headings"
+                            >Learn more
+                        </a>
+                    </div>
+                </div>
+                <!-- card 3 -->
+                <div
+                    class="grid w-full gap-2 px-4 pt-4 pb-3 rounded-lg shadow-lg h-[150px] lg:h-[200px] min-w-[250px]"
+                >
+                    <i class="text-center fas fa-apple-alt fa-lg"></i>
+                    <h2>Nutrition</h2>
+                    <p class="text-xs">Nutrition made for you</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="px-2 mb-14 lg:mb-20">
+        <h1 class="pb-8 text-2xl font-bold">Workout at home with ease.</h1>
+        <div
+            class="grid gap-3 p-8 rounded-lg shadow-lg md:h-[270px] md:w-3/4"
+        >
+            <p class="pb-3 lg:w-1/3">
+                We beleive fitness should be accessable to everyorne everwhere.
+                With healthy recipes, professional workouts at your tips you are
+                sure to reach your personal fitness goals
+            </p>
+
+            <a
+                href=""
+                class="w-full h-[min-content] p-2 text-center text-white rounded-md lg:w-3/12 bg-headings"
+                >Get started</a
+            >
+        </div>
+    </section>
+
+    <!-- shopping section -->
+    <section class="px-2 mb-14 lg:mb-20">
+        <h1 class="pb-6 text-2xl font-bold">
+            Shop our range of fitness equipment & juicers.
+        </h1>
+        <div class="grid grid-flow-col gap-6">
+            <div class="grid gap-6">
+                <div id="shop-yoga-image"></div>
+                <a
+                    href=""
+                    class="w-full px-2 py-2 text-center text-white rounded-md bg-headings"
+                    >Shop now</a
+                >
+            </div>
+            <div class="hidden gap-6 sm:grid">
+                <div id="shop-yoga-image"></div>
+                <a
+                    href=""
+                    class="w-full px-2 py-2 text-center text-white rounded-md bg-headings"
+                    >Shop now</a
+                >
+            </div>
+            <div class="hidden gap-6 sm:grid">
+                <div id="shop-yoga-image"></div>
+                <a
+                    href=""
+                    class="w-full px-2 py-2 text-center text-white rounded-md bg-headings"
+                    >Shop now</a
+                >
+            </div>
+        </div>
+    </section>
+
+    <!-- recipe recomendations -->
+    <section class="px-2 mx-auto mb-14 lg:mb-20">
+        <div class="grid gap-4">
+            <h1 class="text-2xl font-bold">Our recomendations for you</h1>
+            <div>
+                <div class="grid items-center grid-flow-col gap-2 w-min">
+                    <i class="fas fa-arrow-circle-left fa-2x text-buttons"></i>
+                    <span class="px-4 py-1 rounded-full w-max bg-buttons"
+                    >show more</span
+                    >
+                    <i class="fas fa-arrow-circle-right fa-2x text-buttons"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- customer review -->
+    <section class="px-2 mb-24">
+        <h1 class="pb-8 text-2xl font-bold">What our customers say</h1>
+        <div class="grid gap-1 p-8  rounded-lg shadow-lg md:h-[270px] md:w-3/4">
+            <div class="">
+                <div id="customer-review-image"></div>
+            </div>
+            <h2
+                class="w-1/2 text-lg font-bold leading-tight md:w-4/5 mf:place-self-end place-self-center"
+            >
+                “Urban Fitness has hepled me to reach my fitness goals and much
+                more!”
+            </h2>
+        </div>
+    </section>
+</main>
+{% endblock %}
