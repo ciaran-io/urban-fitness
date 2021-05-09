@@ -1,0 +1,158 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<!-- display  products in cart if -->
+{% if cart_items %}
+<!-- total basket items -->
+<div class="pb-4 pl-2">
+    {% for item in cart_items %}
+    <h1 class="font-bold">{{ item.quantity }} Items in cart</h1>
+    {% endfor %}
+    <a>Remove all items</a>
+</div>
+{% for item in cart_items %}
+<section>
+    <!-- mobile cart container -->
+    <div class="px-2 mx-auto md:hidden">
+        <!-- product card -->
+        <div
+            class="grid gap-4 p-4 mb-4 bg-white border border-gray-100 rounded-md"
+        >
+            <div class="grid grid-flow-col">
+                <div>
+                    <a href="">
+                        <img
+                            src="{{ item.product.image.url }}"
+                            alt=""
+                            class="w-[130px] h-[130px] object-contain"
+                        />
+                    </a>
+                </div>
+                <div>
+                    <p class="font-bold text-headings">
+                        {{ item.product.name }}
+                    </p>
+                </div>
+            </div>
+            <!-- product quantity & price -->
+            <div class="grid grid-flow-col">
+                <div class="w-16 border border-gray-300 rounded-md ">
+                    <span class="">{{ item.quantity }}</span
+                    >
+                </div>
+                <div class="text-right">
+                    <span class="font-bold">€{{ item.product.price }}</span>
+                </div>
+            </div>
+            <!-- remove button for product -->
+            <div class="grid justify-end border-t border-gray-100 ">
+                <a class="pt-2 text-purple-700">Remove
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- cart container for medium screens & larger -->
+    <div class="hidden px-4 mx-auto md:grid grid-cols-[2fr,auto] gap-12">
+        <div class="p-6 bg-white rounded-md">
+            <!-- order information table -->
+            <div
+                class="grid grid-cols-[2fr,130px,130px,auto] border-b border-gray-100 pb-4"
+            >
+                <div>Products</div>
+                <div>Price</div>
+                <div>Qty</div>
+                <div>Total</div>
+            </div>
+
+            <div
+                class="grid grid-cols-[2fr,130px,130px,auto] border-b border-gray-100 py-4"
+            >
+                <div class="grid grid-cols-[max-content,auto] gap-3">
+                    <!-- product image container -->
+                    <div>
+                        <a href="">
+                            <img
+                                src="/media/bh-fitness-edx_kmP5n5U.jpg"
+                                alt=""
+                                class="w-[130px] h-[130px] object-contain"
+                            />
+                        </a>
+                    </div>
+                    <div>
+                        <p class="font-bold text-headings">Bike</p>
+                    </div>
+                </div>
+                <div>
+                    <span>€14.00</span>
+                </div>
+                <div>
+                    <span class="p-1 border border-gray-100 rounded-md">
+                        Dropdown
+                    </span>
+                </div>
+                <div>€14.00</div>
+            </div>
+        </div>
+        <!-- order summary card -->
+        <div class="flex flex-col justify-between p-4 bg-white rounded-md">
+            <div class="border-b-2 border-gray-100">
+                <h1 class="text-xl font-bold">Order summary</h1>
+            </div>
+            <div>
+                <div class="flex justify-between pb-2">
+                    <div>
+                        <span> Total: </span>
+                    </div>
+                    <div>
+                        <span> €14.15 </span>
+                    </div>
+                </div>
+                <div
+                    class="grid p-2 text-white bg-purple-700 rounded-md place-items-center"
+                >
+                    <button type="submit">Proceed to checkout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endfor %}
+<!-- cart total and checkout button -->
+<div class="fixed bottom-[65px] w-full grid h-16 grid-cols-2 p-2 bg-white rounded-md">
+    <!-- cart total -->
+    <div class="grid grid-flow-row">
+        <span class="font-bold text-purple-700">Total</span>
+        <span class="text-lg font-bold"> ${{ grand_total|floatformat:2 }}</span>
+    </div>
+    <!-- checkout button -->
+    <div
+        class="grid w-full h-full text-white bg-purple-700 rounded-md place-items-center"
+    >
+        <a href="" class="">Checkout</a>
+    </div>
+</div>
+
+{% else %}
+<section class="px-2 py-5 font-alt-font">
+    <div class="pb-5">
+        <h1>{ cart_items.lenght } Items in cart</h1>
+    </div>
+    <hr />
+
+    <div class="pb-6">
+        <div class="grid h-64 bg-white rounded-md place-items-center">
+            <span class="text-7xl">
+                <i class="text-gray-300 fas fa-shopping-cart 4xl"></i>
+            </span>
+            <p class="font-bold">You have no items in your cart.</p>
+        </div>
+    </div>
+
+    <div class="py-4 text-center bg-purple-700 rounded-md">
+        <a href="{% url 'products' %}">
+            <h1 class="text-white">Start Shopping</h1>
+        </a>
+    </div>
+</section>
+
+{% endif %} {% endblock %}
