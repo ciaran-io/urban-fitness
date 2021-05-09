@@ -1,42 +1,143 @@
 {% extends "base.html" %} {% load static %} {% block content %}
+<!-- hero image -->
 <div>
-    <h1 class="pb-5 text-2xl text-center">Products</h1>
+    <div id="hero-image" class="mx-2 mt-2 mb-7 lg:hidden"></div>
 </div>
-
-<div class="grid grid-cols-1 sm:gap-2 sm:grid-cols-2 lg:grid-cols-4">
-    {% for product in products %}
-    <div class="grid grid-flow-col p-3 bg-white border-t-2 border-gray-300 sm:grid-flow-row sm:mx-2 sm:border-2 ">
-        <div>
-            <a href="">
-                <img
-                    class="w-full h-auto"
-                    src="{{ product.image.url }}"
-                    alt="{{ product.name }}"
-                />
-            </a>
-        </div>
-        <div class="flex flex-col justify-between">
-            <p class="text-sm">{{ product.name }}</p>
-            <span class="font-bold">€{{ product.price }}</span>
-        </div>
+<!-- current category menu -->
+<div class="flex justify-between px-2 pb-2 mx-2 mb-6 border-b-2 md:items-end border-headings">
+    <div>
+        <ul class="grid grid-flow-col gap-1">
+            <li>
+                <a href="{% url 'home' %}">Home /</a>
+            </li>
+            <li>
+                <a href="{% url 'products' %}">all products</a>
+            </li>
+            {% for c in current_categories %}
+            <li>
+                <span class="font-bold text-headings">/ {{ c.friendly_name }}</span>
+            </li>
+            {% endfor %}
+            <li></li>
+        </ul>
     </div>
-    {% endfor %}
+
+    <div class="relative w-6 h-auto md:w-auto">
+        <select id="sort-selector" class="absolute w-full h-full py-2 pl-2 bg-transparent border-0 rounded-md appearance-none md:shadow-sort-box filter drop-shadow-lg ">
+            <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Deafult sorting</option>
+            <option value="price_asc" {% if current_sorting == 'price_asc' %}selected{% endif %}>Sort by price: low to high</option>
+            <option value="price_desc" {% if current_sorting == 'price_desc' %}selected{% endif %}>Price (high to low)</option>
+            <option value="name_asc" {% if current_sorting == 'name_asc' %}selected{% endif %}>Name (A-Z)</option>
+            <option value="name_desc" {% if current_sorting == 'name_desc' %}selected{% endif %}>Name (Z-A)</option>
+            <option value="category_asc" {% if current_sorting == 'category_asc' %}selected{% endif %}>Category (A-Z)</option>
+            <option value="category_desc" {% if current_sorting == 'category_desc' %}selected{% endif %}>Category (Z-A)</option>
+        </select>
+        <span class="absolute top-0 left-0 pointer-events-none md:hidden">
+            <i class="transform rotate-90 text-headings fas fa-exchange-alt fa-lg " aria-hidden="true"></i>
+        </span>
+    </div>
 </div>
-<!-- <div>
-    <ul id="product-card" class="grid border-b-2">
-        <li class="w-4/5 md:full">
-            <a href="">
-                <img
-                    class=""
-                    src="{{ product.image.url }}"
-                    alt="{{ product.name }}"
-                />
-            </a>
-        </li>
-        <li class="grid gap-3 grid-row">
-            <p class="text-sm">{{ product.name }}</p>
-            <span class="font-bold">€{{ product.price }}</span>
-        </li>
-    </ul>
-</div> -->
+<!-- product results -->
+<div class="pb-4 pl-2">
+    <span>
+        Results {{ products|length }}
+    </span>
+    <p>
+        {% if search_term %}We found {{ products|length }} products matching
+        <span class="font-bold text-headings ">"{{ search_term }}"</span>
+        {% endif %}
+    </p>
+</div>
+<!-- main content -->
+<main class="pb-24">
+    <div class="grid grid-cols-1 bg-white sm:grid-cols-2 lg:grid-cols-4">
+        {% for product in products %}
+        <div
+            class="grid grid-flow-col p-3 sm:gap-4 bg-white border-t-[1px] border-gray-300 sm:grid-flow-row sm:border-[1px]"
+        >
+            <div>
+                {% if product.image %}
+                <a href="{% url 'product_detail' product.id %}">
+                    <img
+                        class="w-[130px] h-[130px] object-contain"
+                        src="{{ product.image.url }}"
+                        alt="{{ product.name }}"
+                    />
+                    <span class="hidden text-sm sm:block"
+                        >{{ product.name }}</span
+                    >
+                </a>
+                {% else %}
+                <a href="{% url 'product_detail' product.id %}">
+                    <img
+                        class="w-[130px] h-[130px] object-contain border border-gray-100"
+                        src="{{ MEDIA_URL }}placeholder-images-image_large.png"
+                        alt="{{ product.name }}"
+                    />
+
+                    <span class="hidden text-sm sm:block"
+                        >{{ product.name }}</span
+                    >
+                </a>
+                {% endif %}
+            </div>
+            <div class="flex flex-col justify-between">
+                <p class="text-sm sm:hidden">{{ product.name }}</p>
+                <div class="flex items-center justify-between">
+                    <span class="font-bold">€{{ product.price }}</span>
+
+                    <form  action="{% url 'add_to_cart' product.id %}" method="POST">
+                        {% csrf_token %}
+
+                        <input type="submit"
+                        data-item_id="{{ product.id }}" 
+                        id="id_qty_{{ product.id }}"
+                        
+                        value="Add to Bag">
+                        <i
+                            class="p-2 text-purple-700 border-2 border-purple-700 rounded-full fas fa-shopping-cart fas-lg"
+                        ></i>
+                        <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</main>
 {% endblock %}
+
+
+{% block postloadjs %}
+    {{ block.super }}
+    <script type="text/javascript">
+
+const sortSelector = document.getElementById('sort-selector');
+
+sortSelector.onchange = function() {      
+     
+    let selector = sortSelector.value
+    let currentUrl = new URL(window.location)
+
+    let selectedVal = selector.value;
+        if(selectedVal != "reset"){
+            let sort = selectedVal.split("_")[0];
+            let direction = selectedVal.split("_")[1];
+
+            currentUrl.searchParams.set("sort", sort);
+            currentUrl.searchParams.set("direction", direction);
+
+            window.location.replace(currentUrl);
+        } else {
+            currentUrl.searchParams.delete("sort");
+            currentUrl.searchParams.delete("direction");
+
+            window.location.replace(currentUrl);
+        }
+    }
+    </script>
+document.querySelector('#Email').addEventListener('change',function(){
+    document.querySelector('#UserName').value = this.value;
+});
+    
+{% endblock %}
+
