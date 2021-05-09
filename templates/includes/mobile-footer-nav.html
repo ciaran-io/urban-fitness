@@ -1,0 +1,50 @@
+{% load active_link_tags %}
+
+<section>
+    <div
+        id="mobile-footer"
+        class="fixed bottom-0 z-50 w-full border-t border-gray-200 bg-headings lg:hidden"
+    >
+        <ul
+            class="grid items-center justify-between w-10/12 h-16 max-w-xl grid-flow-col mx-auto border-headings"
+        >
+        <!-- home page link -->
+            <li>
+                <a href="{% url 'home' %}">
+                    <span>
+                        <i class="fas fa-home {% active_link 'home' 'active' strict=True %}"></i>
+                    </span>
+                </a>
+                <span
+                    class="{% active_link 'home' 'mobile-menu-active' strict=True %}">
+                </span>
+            </li>
+            <!-- users cart link -->
+            <li>
+                <a href="{% url 'view_cart' %}">
+                    <span>
+                        <i class="fas fa-shopping-cart {% active_link 'view_cart' 'active' strict=True %}"></i>
+                    </span>
+                    <span class="{% active_link 'view_cart' 'mobile-menu-active' strict=True %}"></span>
+                </a>
+            </li>
+            <!-- users profile link -->
+            <li>
+                <a href="">
+                    <span>
+                        <i class="fas fa-user-alt {% active_link 'active' strict=True %}"></i>
+                    </span>
+                    <span class="{% active_link 'profile' 'mobile-menu-active' strict=True %}"></span>
+                </a>
+            </li>
+            <!-- mobile menu button -->
+            <li>
+                <button type="button" id="mobile-menu-button">
+                    <span>
+                        <i id="mobile-menu-icon" class="fas fa-bars"></i>
+                    </span>
+                </button>
+            </li>
+        </ul>
+    </div>
+</section>
