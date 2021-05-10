@@ -50,7 +50,11 @@
                     <!-- product quantity ammounts -->
                     <div class="grid gap-2 grid-cols-[40px,80px,40px]">
                         <!-- button subtract quantity -->
-                        <button>
+                        <button
+                            id="decrement-qty"
+                            data-item_id="{{ product.id }}"
+                            id="decrement-qty_{{ product.id }}"
+                        >
                             <span
                                 class="px-3 py-2 font-bold border border-gray-300 rounded-md"
                             >
@@ -66,13 +70,18 @@
                                 name="quantity"
                                 value="1"
                                 min="1"
-                                max="99"
+                                max="10"
                                 data-item_id="{{ product.id }}"
-                                id="id_qty_{{ product.id }}"
+                                id="increment-qty_{{ product.id }}"
                             />
                         </div>
                         <!-- button add quantity -->
-                        <button>
+
+                        <button
+                            id="increment-qty"
+                            data-item_id="{{ product.id }}"
+                            id="increment-qty_{{ product.id }}"
+                        >
                             <span
                                 class="px-3 py-2 font-bold border border-gray-300 rounded-md"
                             >
@@ -86,7 +95,10 @@
                 <!-- free shipping ammount to spend -->
                 <div class="">
                     <p class="pb-1 border-b-2 border-gray-300 text-headings">
-                     <span class="font-bold text-purple-700">Free Shipping</span> when you spend €20.24+
+                        <span class="font-bold text-purple-700"
+                            >Free Shipping</span
+                        >
+                        when you spend €20.24+
                     </p>
                 </div>
                 <!-- add to cart -->
@@ -134,4 +146,9 @@
     </div>
 </main>
 
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+{% include 'products/includes/product_quantity_script.html' %}
 {% endblock %}
