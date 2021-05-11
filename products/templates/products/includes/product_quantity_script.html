@@ -1,0 +1,29 @@
+<script type="text/javascript">
+    let incrementButton = document.querySelectorAll('.increment-qty');
+    let decrementButton = document.querySelectorAll('.decrement-qty');
+    let inputValue = document.querySelectorAll("input[name='quantity']");
+
+    // Increment quantity
+    incrementButton.forEach((button) => {
+        button.addEventListener('click', (event) => {
+            event.preventDefault();
+
+            inputValue.forEach((value) => {
+                value.value = parseInt(value.value) + 1;
+            });
+        });
+    });
+
+    // Decrement quantity
+    decrementButton.forEach((button) => {
+        button.addEventListener('click', (event) => {
+            event.preventDefault();
+
+            inputValue.forEach((value) => {
+                value.value = parseInt(value.value) - 1;
+            });
+        });
+    });
+
+ 
+</script>
