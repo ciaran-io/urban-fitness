@@ -1,115 +1,30 @@
-{% extends "base.html" %} {% load static %} {% block content %}
+{% extends "base.html" %} {% load static %}
+{% load cart_tools %} 
+{% block content %}
 
 <!-- display  products in cart if -->
 {% if cart_items %}
 <!-- total basket items -->
-<div class="pb-4 pl-2 md:pl-4">
+<div class="pb-4 pl-2 mt-10 md:pl-4">
     <a class="font-bold text-red-700">Remove all items</a>
 </div>
 <section class="relative px-1 md:pl-5 pb-[150px] md:pb-[100px]">
     {% for item in cart_items %}
     <!-- mobile cart container -->
-    <div class="px-2 md:hidden">
-        <!-- product card -->
-        <div
-            class="grid gap-4 p-4 mb-4 bg-white border border-gray-100 rounded-md "
-        >
-            <div class="grid grid-flow-col">
-                <div>
-                    <a href="">
-                        <img
-                            src="{{ item.product.image.url }}"
-                            alt=""
-                            class="w-[130px] h-[130px] object-contain"
-                        />
-                    </a>
-                </div>
-                <div>
-                    <p class="font-bold text-headings">
-                        <span class="font-bold text-headings"
-                            >{{ item.product.name }}</span
-                        >
-                    </p>
-                </div>
-            </div>
-            <!-- product quantity & price -->
-            <div class="grid grid-flow-col">
-                <form
-                    class="update-form"
-                    method="Post"
-                    action="{% url 'adjust_cart' item.item_id %}"
-                >
-                    {% csrf_token %}
-                    <div class="w-16 border border-gray-300 rounded-md">
-                        <select
-                            id="id_qty_{{ item.item_id }}"
-                            data-item_id="{{ item.item_id }}"
-                            name="quantity"
-                            class="w-full p-1"
-                        >
-                            <option value=" {{ item.quantity }}" selected>
-                                {{ item.quantity }}
-                            </option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                        </select>
-                    </div>
-                </form>
-                <div class="text-right">
-                    <span class="font-bold"
-                        >Total €{{ item.product.price }}</span
-                    >
-                </div>
-            </div>
-            <!-- update / remove products in basket -->
-            <div
-                class="grid justify-between grid-flow-col border-t border-gray-100 "
-            >
-                <a class="pt-2 text-green-700 cursor-pointer update-link"
-                    >Update
-                </a>
-                <a
-                    class="pt-2 text-red-700 cursor-pointer remove-item"
-                    id="remove_{{ item.item_id }}"
-                    >Remove
-                </a>
-            </div>
-        </div>
-    </div>
+    
 
-    <!-- cart container for medium screens & larger -->
-    <div class="hidden w-4/6 md:grid">
+    <!-- cart container -->
+    <div class="grid w-full md:w-4/6 ">
         <div class="p-6 mb-4 bg-white rounded-md">
-            <!-- order information table -->
-            <div
-                class="
-                    grid grid-cols-[2fr,130px,130px,auto]
-                    border-b border-gray-100
-                    pb-4
-                "
-            >
+            <!-- order title information table hidden on small screens -->
+            <div class="hidden md:grid grid-cols-[2fr,130px,130px,auto] border-b border-gray-100 pb-4">
                 <div>Products</div>
                 <div>Price</div>
                 <div>Qty</div>
                 <div>Total</div>
             </div>
 
-            <div
-                class="
-                    grid grid-cols-[2fr,130px,130px,auto]
-                    border-b border-gray-100
-                    py-4
-                "
-            >
-                <div class="">
+            <div class=" grid grid-cols-[1fr,1fr] md:grid-cols-[2fr,130px,130px,auto] border-b border-gray-100 py-4">
                     <!-- product image container -->
                     <div>
                         <a href="">
@@ -119,72 +34,63 @@
                                 class="w-[130px] h-[130px] object-contain pb-3"
                             />
                             <!-- product name -->
-                            <span class="font-bold text-headings"
-                                >{{ item.product.name }}</span
-                            >
+                            <p class="hidden font-bold text-headings md:block">{{ item.product.name }}</p>
                         </a>
                     </div>
-                </div>
-                <div>
-                    <span class="font-bold">€{{ item.product.price }}</span>
-                </div>
-                <div>
-                    <form
-                        class="update-form"
-                        method="Post"
-                        action="{% url 'adjust_cart' item.item_id %}"
-                    >
-                        {% csrf_token %}
-                        <div class="w-16 border border-gray-300 rounded-md">
-                            <select id="" name="quantity" class="w-full p-1">
-                                <option value=" {{ item.quantity }}" selected>
-                                    {{ item.quantity }}
-                                </option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                            </select>
-                        </div>
-                    </form>
-                </div>
-                <div>
-                    <span class="font-bold">€{{ item.product.price }}</span>
+                    <!-- product name -->
+                    <div class="text-right md:hidden">
+                        <p class="font-bold text-headings">{{ item.product.name }}</p>
+                    </div>
+                    <!-- product price hidden on small devices -->
+                    <div class="hidden md:block">
+                        <span class="font-bold">€{{ item.product.price }}</span>
+                    </div>
+                    <div class="self-end md:self-start">
+                        <form class="update-form"
+                            method="POST"
+                            action="{% url 'adjust_cart' item.item_id %}"
+                        >
+                            {% csrf_token %}
+                            <div class="w-16 border border-gray-300 rounded-md">
+                                <select name="quantity" data-item_id="{{ item.item_id }}" id="id_qty_{{ item.item_id }}" class="w-full p-1">
+                                    <option value=" {{ item.quantity }}" selected>
+                                        {{ item.quantity }}
+                                    </option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- product price & total hidden on medium screens and larger -->
+                    <div class="grid gap-3 text-right gird-row md:hidden">
+                        <span class="font-bold">Price:  €{{ item.product.price}}</span>
+                        <span class="font-bold">Total:  €{{ item.product.price | calc_subtotal:item.quantity}}</span>
+                    </div>
+                <!-- product price hidden on mobile -->
+                <div class="hidden md:block">
+                    <span class="font-bold">€{{ item.product.price | calc_subtotal:item.quantity}}</span>
                 </div>
             </div>
+             <!-- update product qty & remove item links -->
             <div class="flex justify-between pt-2">
                 <a class="text-green-500 cursor-pointer update-link">Update</a>
-                <a
-                    class="text-red-700 cursor-pointer remove-item"
-                    id="remove_{{ item.item_id }}"
-                    >Remove</a
-                >
+                <a class="text-red-700 cursor-pointer remove-item" id="remove_{{ item.item_id }}">Remove</a>
             </div>
         </div>
     </div>
     {% endfor %}
 
     <!-- cart total and checkout button mobile -->
-    <div
-        class="
-            fixed
-            bottom-[65px]
-            w-full
-            grid
-            h-16
-            grid-cols-2
-            p-2
-            bg-white
-            rounded-md
-            md:hidden
-        "
-    >
+    <div class="fixed bottom-[65px] w-full grid h-16 grid-cols-2 p-2 bg-white rounded-md md:hidden">
         <!-- cart total mobile -->
         <div class="grid grid-flow-row">
             <span class="font-bold text-purple-700">Total</span>
@@ -193,36 +99,29 @@
             </span>
         </div>
         <!-- checkout button mobile -->
-        <div
-            class="grid w-full h-full text-white bg-purple-700 rounded-md place-items-center"
-        >
-            <a href="" class="">Checkout</a>
+        <div class="grid w-full h-full text-white bg-purple-700 rounded-md place-items-center">
+            <a href="{% url 'checkout' %}">Checkout</a>
         </div>
     </div>
 
     <!-- order summary card tablet and lager screens -->
-    <div
-        class="absolute top-0 right-0 flex-col justify-between hidden w-3/12 h-64 p-4 mr-5 bg-white rounded-md md:flex"
-    >
+    <div class="absolute top-0 right-0 flex-col justify-between hidden w-3/12 h-64 p-4 mr-5 bg-white rounded-md md:flex">
         <div class="border-b-2 border-gray-100">
             <h1 class="text-xl font-bold">Order summary</h1>
         </div>
-        {% for product_count in cart_items %}
-        <h1 class="font-bold">{{ product_count.quantity }} Items in cart</h1>
-        {% endfor %}
+        <h1 class="font-bold">{{ product_count }} Items in cart</h1>
         <div>
             <div class="flex justify-between pb-2">
                 <div>
-                    <span> Total: </span>
+                    <span>Total:</span>
                 </div>
+                <!-- grand total -->
                 <div>
                     <span>€{{ grand_total|floatformat:2 }}</span>
                 </div>
             </div>
-            <div
-                class="grid p-2 text-white bg-purple-700 rounded-md place-items-center"
-            >
-                <button type="submit">Proceed to checkout</button>
+            <div class="grid p-2 text-white bg-purple-700 rounded-md place-items-center">
+                <a href="{% url 'checkout' %}">Proceed to checkout</a>
             </div>
         </div>
     </div>
@@ -233,7 +132,7 @@
 <!-- displays empty cart image with link back to shopping page -->
 <section class="px-2 py-5 font-alt-font">
     <div class="pb-5">
-        <h1>{{ cart_items.lenght }} Items in cart</h1>
+        <h1>{{ product_count }}</h1> Items in cart</h1>
     </div>
     <hr />
 
@@ -255,37 +154,38 @@
 
 {% endif %} {% endblock %} {% block postloadjs %} {{ block.super }}
 
-<script type="text/javascript">
-    let updateLink = document.querySelectorAll('.update-link');
+<script type="text/javascript"> 
 
-    // Update quantity on click
+    let updateLink = document.querySelectorAll('.update-link');
+    let form = document.querySelectorAll('.update-form');
+    
     updateLink.forEach((updateLink) => {
         updateLink.addEventListener('click', () => {
-            let form = document.querySelectorAll('.update-form');
-            form.forEach((form) => {
+        form.forEach((form) => {
                 form.submit();
-            });
         });
+    });
     });
 
     let removeItem = document.querySelectorAll('.remove-item');
 
-    // Remove item and reload on click
-    removeItem.forEach((removeItem) => {
-        removeItem.addEventListener('click', () => {
-            let itemId = removeItem.getAttribute('id').split('remove_')[1];
-            let csrfToken = '{{ csrf_token }}';
+    // Remove item from basket
+    removeItem.forEach((item) => {
+        item.addEventListener('click', () => {
+            let csrfToken = "{{ csrf_token }}";
+            let itemId = item.getAttribute('id').split('remove_')[1];
             let url = `/cart/remove/${itemId}/`;
-            let data = { csrfmiddlewaretoken: csrfToken };
-
-            window.post = function (url, data) {
-                return fetch(url, {
-                    method: 'POST',
-                    body: JSON.stringify(data),
-                });
-                    location.reload();
-            };
+            let data = {'csrfmiddlewaretoken': csrfToken};
+   
+            // POST request using fetch method
+            fetch(url,data, {
+            method: "POST",
+            })
+            .then(() =>
+            location.reload()
+            )
         });
     });
-</script>
+</script> 
+
 {% endblock %}
