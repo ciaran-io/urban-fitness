@@ -14,20 +14,31 @@ const displayMobileMenu = () => {
 };
 displayMobileMenu();
 
-const searchButton = document.getElementById('search-button');
-const searchBox = document.getElementById('search-box');
-const searchIcon = document.getElementById('search-icon');
-const searchIconClose = document.getElementById('search-icon-close');
-const searchField = document.getElementById('search-form');
+const searchButtonMobile = document.getElementById('search-button-mobile');
+const searchBoxMobile = document.getElementById('search-box-mobile');
+const searchIconMobile = document.getElementById('search-icon-mobile');
+const searchIconCloseMobile = document.getElementById('search-icon-close-mobile');
+const searchFieldMobile = document.getElementById('search-form-mobile');
 
 // displays search box on click & adds focus on input
-const displaySearchBox = () => {
-    searchButton.addEventListener('click', () => {
-        searchBox.classList.toggle('hidden');
-        searchIcon.classList.toggle('hidden');
-        searchIconClose.classList.toggle('hidden');
-
-        searchField.focus();
-    });
+const displaySearchMobile = () => {
+    searchBoxMobile.classList.toggle('hidden');
+    searchIconMobile.classList.toggle('hidden');
+    searchIconMobile.classList.toggle('hidden');
+    searchFieldMobile.focus();
 };
-displaySearchBox();
+
+
+const searchButtonDesktop = document.getElementById('search-button-desktop');
+const searchBoxDesktop = document.getElementById('search-box-desktop');
+const searchIconDesktop = document.getElementById('search-icon-desktop');
+const searchIconCloseDesktop = document.getElementById('search-icon-close-desktop');
+const searchFieldDesktop = document.getElementById('search-form-desktop');
+
+const displaySearchDesktop = () => {
+        searchBoxDesktop.classList.toggle('hidden');
+        searchIconDesktop.classList.toggle('hidden');
+        searchIconCloseDesktop.classList.toggle('hidden');
+        searchFieldDesktop.focus();
+};
+
