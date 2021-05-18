@@ -1,0 +1,191 @@
+{% extends "base.html" %} {% load static %}
+{% load cart_tools %} 
+{% block content %}
+
+<!-- display  products in cart if -->
+{% if cart_items %}
+<!-- total basket items -->
+<div class="pb-4 pl-2 mt-10 md:pl-4">
+    <a class="font-bold text-red-700">Remove all items</a>
+</div>
+<section class="relative px-1 md:pl-5 pb-[150px] md:pb-[100px]">
+    {% for item in cart_items %}
+    <!-- mobile cart container -->
+    
+
+    <!-- cart container -->
+    <div class="grid w-full md:w-4/6 ">
+        <div class="p-6 mb-4 bg-white rounded-md">
+            <!-- order title information table hidden on small screens -->
+            <div class="hidden md:grid grid-cols-[2fr,130px,130px,auto] border-b border-gray-100 pb-4">
+                <div>Products</div>
+                <div>Price</div>
+                <div>Qty</div>
+                <div>Total</div>
+            </div>
+
+            <div class=" grid grid-cols-[1fr,1fr] md:grid-cols-[2fr,130px,130px,auto] border-b border-gray-100 py-4">
+                    <!-- product image container -->
+                    <div>
+                        <a href="">
+                            <img
+                                src="{{ item.product.image.url }}"
+                                alt=""
+                                class="w-[130px] h-[130px] object-contain pb-3"
+                            />
+                            <!-- product name -->
+                            <p class="hidden font-bold text-headings md:block">{{ item.product.name }}</p>
+                        </a>
+                    </div>
+                    <!-- product name -->
+                    <div class="text-right md:hidden">
+                        <p class="font-bold text-headings">{{ item.product.name }}</p>
+                    </div>
+                    <!-- product price hidden on small devices -->
+                    <div class="hidden md:block">
+                        <span class="font-bold">€{{ item.product.price }}</span>
+                    </div>
+                    <div class="self-end md:self-start">
+                        <form class="update-form"
+                            method="POST"
+                            action="{% url 'adjust_cart' item.item_id %}"
+                        >
+                            {% csrf_token %}
+                            <div class="w-16 border border-gray-300 rounded-md">
+                                <select name="quantity" data-item_id="{{ item.item_id }}" id="id_qty_{{ item.item_id }}" class="w-full p-1">
+                                    <option value=" {{ item.quantity }}" selected>
+                                        {{ item.quantity }}
+                                    </option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- product price & total hidden on medium screens and larger -->
+                    <div class="grid gap-3 text-right gird-row md:hidden">
+                        <span class="font-bold">Price:  €{{ item.product.price}}</span>
+                        <span class="font-bold">Total:  €{{ item.product.price | calc_subtotal:item.quantity}}</span>
+                    </div>
+                <!-- product price hidden on mobile -->
+                <div class="hidden md:block">
+                    <span class="font-bold">€{{ item.product.price | calc_subtotal:item.quantity}}</span>
+                </div>
+            </div>
+             <!-- update product qty & remove item links -->
+            <div class="flex justify-between pt-2">
+                <a class="text-green-500 cursor-pointer update-link">Update</a>
+                <a class="text-red-700 cursor-pointer remove-item" id="remove_{{ item.item_id }}">Remove</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- cart total and checkout button mobile -->
+    <div class="fixed bottom-[65px] w-full grid h-16 grid-cols-2 p-2 bg-white rounded-md md:hidden">
+        <!-- cart total mobile -->
+        <div class="grid grid-flow-row">
+            <span class="font-bold text-purple-700">Total</span>
+            <span class="text-lg font-bold">
+                €{{ grand_total|floatformat:2 }}
+            </span>
+        </div>
+        <!-- checkout button mobile -->
+        <div class="grid w-full h-full text-white bg-purple-700 rounded-md place-items-center">
+            <a href="{% url 'checkout' %}">Checkout</a>
+        </div>
+    </div>
+
+    <!-- order summary card tablet and lager screens -->
+    <div class="absolute top-0 right-0 flex-col justify-between hidden w-3/12 h-64 p-4 mr-5 bg-white rounded-md md:flex">
+        <div class="border-b-2 border-gray-100">
+            <h1 class="text-xl font-bold">Order summary</h1>
+        </div>
+        <h1 class="font-bold">{{ product_count }} Items in cart</h1>
+        <div>
+            <div class="flex justify-between pb-2">
+                <div>
+                    <span>Total:</span>
+                </div>
+                <!-- grand total -->
+                <div>
+                    <span>€{{ grand_total|floatformat:2 }}</span>
+                </div>
+            </div>
+            <div class="grid p-2 text-white bg-purple-700 rounded-md place-items-center">
+                <a href="{% url 'checkout' %}">Proceed to checkout</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% else %}
+
+<!-- displays empty cart image with link back to shopping page -->
+<section class="px-2 py-5 font-alt-font">
+    <div class="pb-5">
+        <h1>{{ product_count }}</h1> Items in cart</h1>
+    </div>
+    <hr />
+
+    <div class="pb-6">
+        <div class="grid h-64 bg-white rounded-md place-items-center">
+            <span class="text-7xl">
+                <i class="text-gray-300 fas fa-shopping-cart 4xl"></i>
+            </span>
+            <p class="font-bold">You have no items in your cart.</p>
+        </div>
+    </div>
+
+    <div class="py-4 text-center bg-purple-700 rounded-md">
+        <a href="{% url 'products' %}">
+            <h1 class="text-white">Start Shopping</h1>
+        </a>
+    </div>
+</section>
+
+{% endif %} {% endblock %} {% block postloadjs %} {{ block.super }}
+
+<script type="text/javascript"> 
+
+    let updateLink = document.querySelectorAll('.update-link');
+    let form = document.querySelectorAll('.update-form');
+    
+    updateLink.forEach((updateLink) => {
+        updateLink.addEventListener('click', () => {
+        form.forEach((form) => {
+                form.submit();
+        });
+    });
+    });
+
+    let removeItem = document.querySelectorAll('.remove-item');
+
+    // Remove item from basket
+    removeItem.forEach((item) => {
+        item.addEventListener('click', () => {
+            let csrfToken = "{{ csrf_token }}";
+            let itemId = item.getAttribute('id').split('remove_')[1];
+            let url = `/cart/remove/${itemId}/`;
+            let data = {'csrfmiddlewaretoken': csrfToken};
+   
+            // POST request using fetch method
+            fetch(url,data, {
+            method: "POST",
+            })
+            .then(() =>
+            location.reload()
+            )
+        });
+    });
+</script> 
+
+{% endblock %}

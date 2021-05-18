@@ -1,0 +1,50 @@
+<script type="text/javascript">
+    let incrementButton = document.querySelectorAll('.increment-qty');
+    let decrementButton = document.querySelectorAll('.decrement-qty');
+    let inputValue = document.querySelectorAll("input[name='quantity']");
+
+    // Increment quantity
+    incrementButton.forEach((button) => {
+        button.addEventListener('click', (event) => {
+            event.preventDefault();
+
+            inputValue.forEach((value) => {
+                value.value = parseInt(value.value) + 1;
+                stopButton();
+            });
+        });
+    });
+
+    // Decrement quantity
+    decrementButton.forEach((button) => {
+        button.addEventListener('click', (event) => {
+            event.preventDefault();
+
+            inputValue.forEach((value) => {
+                value.value = parseInt(value.value) - 1;
+                stopButton();
+            });
+        });
+    });
+
+    // Stop button increment decrement quantitys 
+    const stopButton = () => {
+        inputValue.forEach((value) => {
+            decrementButton.forEach((button) => {
+                if (value.value <= 1) {
+                    button.disabled = true;
+                } else if (value.value > 1) {
+                    button.disabled = false;
+                }
+            });
+            incrementButton.forEach((button) => {
+                if (value.value >= 10) {
+                    button.disabled = true;
+                } else if (value.value < 10) {
+                    button.disabled = false;
+                }
+            });
+        });
+    };
+
+</script>

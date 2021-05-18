@@ -1,0 +1,26 @@
+[
+    {
+        "pk": 1,
+        "model": "products.category",
+        "fields": {
+            "name": "juicers",
+            "friendly_name": "juicers"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "products.category",
+        "fields": {
+            "name": "gym_equipment",
+            "friendly_name": "Gym Equipment"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "products.category",
+        "fields": {
+            "name": "Supplements",
+            "friendly_name": "supplements"
+        }
+    }
+]

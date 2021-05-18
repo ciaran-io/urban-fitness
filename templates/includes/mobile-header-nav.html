@@ -1,0 +1,61 @@
+
+<!-- mobile header -->
+<div
+    class="grid items-center justify-between w-full grid-flow-col px-3 py-2 md:hidden"
+>
+    <div>
+    </div>
+    <!-- header logo -->
+    <div>
+        <a href="{% url 'home' %}" class="text-3xl font-logo"
+            >Urban Fitness</a
+        >
+    </div>
+    <!-- search button -->
+    <div>
+        <button onclick="displaySearchMobile()" id="search-button-mobile">
+            <span id="search-icon-mobile">
+                <i class="fas fa-search fa-lg"></i>
+            </span>
+            <span id="search-icon-close-mobile" class="hidden">
+                <i class="text-purple-600 fas fa-times fa-lg"></i>
+            </span>
+        </button>
+    </div>
+</div>
+
+<!-- serach input formzz -->
+<div id="search-box-mobile" class="hidden w-11/12 py-3 mx-auto md:hidden">
+    <form method="GET" action="{% url 'products' %}" class="grid items-center w-full grid-cols-[1fr,min-content] bg-white rounded-md">
+        <input
+            id="search-form-mobile"
+            class="w-full h-full p-2 border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+            type="text"
+            name="q"
+            placeholder="Search Urban Fitness Products"
+            maxlength="65"
+        />
+    </form>
+</div>
+<!-- mobile flyout menu -->
+<div id="mobile-menu" class="fixed top-0 left-0 z-10 w-0 h-full text-white bg-headings md:hidden">
+    <div class="hidden p-4">
+        <h1 class="pb-3 text-xl text-white font-logo">Urban Fitness</h1>
+        <div class="relative">
+            <ul class="grid gap-1 font-alt-font ">
+                <li class="pb-2 mb-2 font-bold border-b-2 border-gray-100"> 
+                    <a href="{% url 'products' %}">Shop all products</a>
+                </li>
+                <li>
+                    <a href="{% url 'products' %}?category=juicers">Juicers</a>
+                </li>
+                <li>
+                    <a href="{% url 'products' %}?category=gym_equipment" class="">Gym equipment</a>
+                </li>
+                <li>
+                    <a href="{% url 'products' %}?category=supplements" class="">Supplements</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
