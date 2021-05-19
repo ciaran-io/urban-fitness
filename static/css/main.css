@@ -599,9 +599,6 @@ video {
 .ml-2{
 	margin-left: 0.5rem;
 }
-.mr-0{
-	margin-right: 0px;
-}
 .mb-6{
 	margin-bottom: 1.5rem;
 }
@@ -610,6 +607,9 @@ video {
 }
 .mb-2{
 	margin-bottom: 0.5rem;
+}
+.mb-\[75px\]{
+	margin-bottom: 75px;
 }
 .mt-11{
 	margin-top: 2.75rem;
@@ -625,6 +625,18 @@ video {
 }
 .ml-\[15px\]{
 	margin-left: 15px;
+}
+.mb-\[70px\]{
+	margin-bottom: 70px;
+}
+.mr-14{
+	margin-right: 3.5rem;
+}
+.mr-24{
+	margin-right: 6rem;
+}
+.mr-40{
+	margin-right: 10rem;
 }
 .block{
 	display: block;
@@ -707,20 +719,30 @@ video {
 .w-3\/12{
 	width: 25%;
 }
-.w-10\/12{
-	width: 83.333333%;
-}
 .w-auto{
 	width: auto;
 }
 .w-11\/12{
 	width: 91.666667%;
 }
+.w-10\/12{
+	width: 83.333333%;
+}
 .w-0{
 	width: 0px;
 }
 .min-w-\[250px\]{
 	min-width: 250px;
+}
+.min-w-min{
+	min-width: -webkit-min-content;
+	min-width: -moz-min-content;
+	min-width: min-content;
+}
+.min-w-max{
+	min-width: -webkit-max-content;
+	min-width: -moz-max-content;
+	min-width: max-content;
 }
 .max-w-7xl{
 	max-width: 80rem;
@@ -786,6 +808,9 @@ video {
 .flex-col{
 	flex-direction: column;
 }
+.flex-wrap{
+	flex-wrap: wrap;
+}
 .place-content-start{
 	place-content: start;
 }
@@ -848,6 +873,12 @@ video {
 }
 .overflow-auto{
 	overflow: auto;
+}
+.overflow-x-auto{
+	overflow-x: auto;
+}
+.overflow-x-scroll{
+	overflow-x: scroll;
 }
 .overflow-hidden{
 	overflow: hidden;
@@ -1060,6 +1091,9 @@ video {
 .pb-5{
 	padding-bottom: 1.25rem;
 }
+.pr-4{
+	padding-right: 1rem;
+}
 .text-center{
 	text-align: center;
 }
@@ -1147,13 +1181,17 @@ video {
 	--tw-text-opacity: 1;
 	color: rgba(209, 213, 219, var(--tw-text-opacity));
 }
+.text-black{
+	--tw-text-opacity: 1;
+	color: rgba(0, 0, 0, var(--tw-text-opacity));
+}
 .text-red-500{
 	--tw-text-opacity: 1;
 	color: rgba(239, 68, 68, var(--tw-text-opacity));
 }
-.text-black{
+.text-gray-800{
 	--tw-text-opacity: 1;
-	color: rgba(0, 0, 0, var(--tw-text-opacity));
+	color: rgba(31, 41, 55, var(--tw-text-opacity));
 }
 .text-purple-600{
 	--tw-text-opacity: 1;
@@ -1164,6 +1202,10 @@ video {
 }
 .shadow-lg{
 	--tw-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+	box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-md{
+	--tw-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 	box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 .filter{
@@ -1401,6 +1443,26 @@ form#payment-form input:focus{
 	line-height: 1rem;
 }
 
+
+
+#customer-success-details-card div, #customer-success-order-card div{
+	display: flex;
+	justify-content: space-between;
+	padding-top: 0.75rem;
+	padding-bottom: 0.75rem;
+}
+
+#customer-success-details-card :not(:first-child):not(:last-child){
+	border-bottom-width: 1px;
+	--tw-border-opacity: 1;
+	border-color: rgba(229, 231, 235, var(--tw-border-opacity));
+}
+
+#customer-success-details-card p{
+	--tw-text-opacity: 1;
+	color: rgba(17, 24, 39, var(--tw-text-opacity));
+}
+
 .hover\:border-b-2:hover{
 	border-bottom-width: 2px;
 }
@@ -1456,15 +1518,28 @@ form#payment-form input:focus{
 	.sm\:grid-cols-2{
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
+	.sm\:justify-between{
+		justify-content: space-between;
+	}
 	.sm\:gap-4{
 		gap: 1rem;
 	}
 	.sm\:border-\[1px\]{
 		border-width: 1px;
 	}
+	.sm\:pb-0{
+		padding-bottom: 0px;
+	}
 }
 
 @media (min-width: 768px){
+	.md\:mx-2{
+		margin-left: 0.5rem;
+		margin-right: 0.5rem;
+	}
+	.md\:mb-4{
+		margin-bottom: 1rem;
+	}
 	.md\:block{
 		display: block;
 	}
@@ -1498,8 +1573,20 @@ form#payment-form input:focus{
 	.md\:items-end{
 		align-items: flex-end;
 	}
+	.md\:justify-between{
+		justify-content: space-between;
+	}
+	.md\:gap-4{
+		gap: 1rem;
+	}
+	.md\:place-self-end{
+		place-self: end;
+	}
 	.md\:self-start{
 		align-self: flex-start;
+	}
+	.md\:p-5{
+		padding: 1.25rem;
 	}
 	.md\:pl-4{
 		padding-left: 1rem;
@@ -1543,6 +1630,9 @@ form#payment-form input:focus{
 	}
 	.lg\:w-3\/12{
 		width: 25%;
+	}
+	.lg\:w-10\/12{
+		width: 83.333333%;
 	}
 	.lg\:grid-cols-4{
 		grid-template-columns: repeat(4, minmax(0, 1fr));

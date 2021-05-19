@@ -197,3 +197,23 @@ form#payment-form input {
     @apply
     pb-2 text-xs;
 }
+
+
+
+#customer-success-details-card div, #customer-success-order-card div {
+    @apply
+    flex
+    justify-between
+    py-3;
+}
+
+#customer-success-details-card :not(:first-child):not(:last-child) {
+    @apply
+    border-b
+    border-gray-200;
+}
+
+#customer-success-details-card p {
+    @apply
+    text-gray-900;
+}
