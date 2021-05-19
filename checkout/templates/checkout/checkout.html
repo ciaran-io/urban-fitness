@@ -5,117 +5,113 @@
 <!-- checkout container -->
 <section class="px-2 mt-5">
 
-
-<div class="flex mb-4">
-    <span class="pr-2">
-        <i class="fas fa-lock"></i>
-    </span>
-    <h1>
-        Checkout details
-    </h1>
-</div>
-
-<!-- return to cart or store section -->
-<div class="grid w-3/4 grid-cols-[160px,160px,auto] gap-2 mb-5 items-center">
-    <div class="px-4 py-2 bg-purple-700 rounded-md">
-        <a href="{% url 'products' %}" class="flex items-baseline justify-around">
-            <span class="pr-2">
-                <i class="text-white fas fa-arrow-left "></i>
-            </span>
-           <p class="text-white">Back to store</p>
-    </a>
-    </div>
-    <div class="px-4 py-2 bg-purple-700 rounded-md">
-        <a href="{% url 'view_cart' %}" class="block text-center ">
-            <p class="text-white">View cart</p>
-     </a>
-    </div>
-
-    <!-- create account / login -->
-    <div class="form-check form-check-inline">
-        {% if user.is_authenticated %}
-            <label class="form-check-label" for="id-save-info">Save this delivery information to my profile</label>
-            <input class="ml-2 mr-0 text-red-500 form-check-input" type="checkbox" id="id-save-info" name="save-info" checked>
-        {% else %}
-            <label class="form-check-label" for="id-save-info">
-                <a class="text-purple-700 underline" href="{% url 'account_signup' %}">Create an account</a> or 
-                <a class="text-purple-700 underline" href="{% url 'account_login' %}">login</a> to save this information
-            </label>
-        {% endif %}
-    </div>
-</div>
-
-
-<!-- checkout form -->
-<div class="w-10/12 p-4 mb-6 bg-white rounded-md">
-    <h1 class="pb-5 text-lg">Please fill out the form below to complete your order</h1>
-    <form action="{% url 'checkout' %}" method="POST" id="payment-form">
-        {% csrf_token %}
-        <fieldset class="grid grid-rows-[auto] pb-6">
-            <legend class="pb-1 mb-4 border-b-2 border-purple-700">Details</legend>
-            {{ order_form.full_name }}
-            {{ order_form.email }}
-        </fieldset>
-        <fieldset class="grid grid-rows-[auto] pb-6">
-            <legend class="pb-1 mb-4 border-b-2 border-purple-700">Delivery</legend>
-            {{ order_form.phone_number }}
-            {{ order_form.postcode }}
-            {{ order_form.town_or_city }}
-            {{ order_form.street_address1 }}
-            {{ order_form.street_address2 }}
-            {{ order_form.county }}
-        </fieldset>
-        <fieldset class="px-3">
-            <legend class="w-auto px-2 text-black fieldset-label small">Payment</legend>
-            <!-- A Stripe card element will go here -->
-            <div class="mb-3" id="card-element"></div>
-    
-            <!-- Used to display form errors -->
-            <div class="mb-3 text-red-500" id="card-errors" role="alert"></div>
-        </fieldset>
-    
-        <div class="mt-5 mb-2 text-right submit-button">                    
-            <button id="submit-button" class="px-4 py-2 mb-2 text-white bg-purple-700 rounded-md">
-                <span class="font-weight-bold">Place Order</span>
-            </button>
-            <p>
-                <span>
-                    <i class="fas fa-exclamation-circle"></i>
-                </span>
-                <span>Order Total <strong>€{{ grand_total|floatformat:2 }}</strong></span>
-            </p>
-        </div>
-    </form>
-</div>
-</section>
-
-
-{% for item in cart_items %}
-<div class="w-10/12 px-4 py-6 mb-4 bg-white rounded-md">
-    <div class="pb-4">
-        <h1 class="font-bold">
-            Order summary
+    <div class="flex mb-4">
+        <span class="pr-2">
+            <i class="fas fa-lock"></i>
+        </span>
+        <h1>
+            Checkout details
         </h1>
     </div>
-    <div class="grid grid-flow-row gap-4">
-        <div class="flex justify-between pb-2 border-b border-gray-200">
-            <p class="my-0">Order Total</p>
-            <p class="">€{{ total | floatformat:2  }}</p>
+
+    <!-- return to cart or store section -->
+    <div class="grid w-full lg:w-10/12 grid-cols-[160px,160px,auto] gap-2 mb-5 items-center overflow-x-auto pb-4 sm:pb-0">
+        <div class="px-4 py-2 bg-purple-700 rounded-md">
+            <a href="{% url 'products' %}" class="flex items-baseline justify-around">
+                <span class="pr-2">
+                    <i class="text-white fas fa-arrow-left "></i>
+                </span>
+            <p class="text-white">Back to store</p>
+        </a>
         </div>
-    
-        <div class="flex justify-between pb-2 border-b border-gray-200">
-            <p class="my-0">Delivery</p>
-            <p class="">€{{ delivery | floatformat:2 }}</p>
+        <div class="px-4 py-2 bg-purple-700 rounded-md">
+            <a href="{% url 'view_cart' %}" class="block text-center ">
+                <p class="text-white">View cart</p>
+        </a>
         </div>
-    
-        <div class="flex justify-between pb-2 border-b border-gray-200">
-            <p class="my-0">Grand Total</p>
-            <p class="my-0"><strong>€{{ grand_total | floatformat:2 }}</strong></p>
+
+        <!-- create account / login -->
+        <div class="md:place-self-end w-max">
+            {% if user.is_authenticated %}
+                <label class="form-check-label" for="id-save-info">Save my order for later</label>
+                <input class="ml-2 form-check-input" type="checkbox" id="id-save-info" name="save-info" checked>
+            {% else %}
+                <label class="form-check-label" for="id-save-info">
+                    <a class="text-purple-700 underline" href="{% url 'account_signup' %}">Create an account</a> or 
+                    <a class="text-purple-700 underline" href="{% url 'account_login' %}">login</a> to save this information
+                </label>
+            {% endif %}
         </div>
     </div>
-</div>
 
-{% endfor %}
+    <!-- checkout form -->
+    <div class="w-full p-4 mb-6 bg-white rounded-md lg:w-10/12">
+        <h1 class="pb-5 text-lg">Please fill out the form below to complete your order</h1>
+        <form action="{% url 'checkout' %}" method="POST" id="payment-form">
+            {% csrf_token %}
+            <fieldset class="grid grid-rows-[auto] pb-6">
+                <legend class="pb-1 mb-4 border-b-2 border-purple-700">Details</legend>
+                {{ order_form.full_name }}
+                {{ order_form.email }}
+            </fieldset>
+            <fieldset class="grid grid-rows-[auto] pb-6">
+                <legend class="pb-1 mb-4 border-b-2 border-purple-700">Delivery</legend>
+                {{ order_form.phone_number }}
+                {{ order_form.postcode }}
+                {{ order_form.town_or_city }}
+                {{ order_form.street_address1 }}
+                {{ order_form.street_address2 }}
+                {{ order_form.county }}
+            </fieldset>
+            <fieldset class="px-3">
+                <legend class="w-auto px-2 text-black fieldset-label small">Payment</legend>
+                <!-- A Stripe card element will go here -->
+                <div class="mb-3" id="card-element"></div>
+        
+                <!-- Used to display form errors -->
+                <div class="mb-3 text-red-500" id="card-errors" role="alert"></div>
+            </fieldset>
+        
+            <div class="mt-5 mb-2 text-right submit-button">                    
+                <button id="submit-button" class="px-4 py-2 mb-2 text-white bg-purple-700 rounded-md">
+                    <span class="font-weight-bold">Place Order</span>
+                </button>
+                <p>
+                    <span>
+                        <i class="fas fa-exclamation-circle"></i>
+                    </span>
+                    <span>Order Total <strong>€{{ grand_total|floatformat:2 }}</strong></span>
+                </p>
+            </div>
+        </form>
+    </div>
+    <div class="w-full px-4 py-6 md:mb-4 bg-white rounded-md lg:w-10/12 mb-[75px]">
+        <div class="pb-4">
+            <h1 class="font-bold">
+                Order summary
+            </h1>
+        </div>
+
+        <div class="grid grid-flow-row gap-4">
+            <div class="flex justify-between pb-2 border-b border-gray-200">
+                <p class="my-0">Order Total</p>
+                <p class="">€{{ total | floatformat:2  }}</p>
+            </div>
+        
+            <div class="flex justify-between pb-2 border-b border-gray-200">
+                <p class="my-0">Delivery</p>
+                <p class="">€{{ delivery | floatformat:2 }}</p>
+            </div>
+        
+            <div class="flex justify-between pb-2 border-b border-gray-200">
+                <p class="my-0">Grand Total</p>
+                <p class="my-0"><strong>€{{ grand_total | floatformat:2 }}</strong></p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
 {% endblock %}
 
 {% block postloadjs %}
