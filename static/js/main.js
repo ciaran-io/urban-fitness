@@ -24,7 +24,7 @@ const searchFieldMobile = document.getElementById('search-form-mobile');
 const displaySearchMobile = () => {
     searchBoxMobile.classList.toggle('hidden');
     searchIconMobile.classList.toggle('hidden');
-    searchIconMobile.classList.toggle('hidden');
+    searchIconCloseMobile.classList.toggle('hidden');
     searchFieldMobile.focus();
 };
 
