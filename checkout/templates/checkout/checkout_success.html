@@ -1,0 +1,112 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<section class="mt-5 bg-white rounded-md md:mx-2 mb-[70px]">
+    <div class="p-2 text-gray-800 md:p-5">
+        <div class="flex pb-2 mb-5 font-bold border-b-2 border-purple-700 wrap">
+            <h1 class="pr-2">
+                Thank you {{ order.full_name }} for your shopping with us!
+            </h1>
+            <h1>Please find your order deatils below.</h1>
+        </div>
+        <!-- customer order details -->
+        <div class="flex flex-wrap justify-between pb-5 overflow-x-scroll">
+            <p class="pr-2 min-w-max">Order Number:</p>
+            <p class="font-bold text-gray-800">{{ order.order_number }}</p>
+        </div>
+        <!-- customer order products -->
+        <div class="grid grid-flow-row gap-6 px-3 py-6 pb-5 mb-5 overflow-x-scroll rounded-md shadow-md md:gap-4">
+            {% for item in order.lineitems.all %}
+            <div class="flex flex-wrap justify-between">
+                <div class="mr-40">
+                    <p>Item: {{ item.product.name }}</p>
+                </div>
+                <div>
+                    <span class="font-bold text-gray-800 min-w-max">
+                        Qty: {{ item.quantity }} / each €{{ item.product.price}}
+                    </span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- customer details / order details -->
+        <div
+            id="customer-success-details-card"
+            class="px-3 py-6 mb-5 rounded-md shadow-md"
+        >
+            <div class="pb-2 mb-3 border-b-2 border-purple-700">
+                <h1>Delivering to:</h1>
+            </div>
+            <div>
+                <p>Full Name</p>
+                <p>{{ order.full_name }}</p>
+            </div>
+
+            <div>
+                <p>Email</p>
+                <p>{{ order.email }}</p>
+            </div>
+
+            <div>
+                <p>Phone Number</p>
+                <p>{{ order.phone_number }}</p>
+            </div>
+
+            {% if order.postcode %}
+            <div>
+                <p>Postal Code</p>
+                <p>{{ order.postcode }}</p>
+            </div>
+            {% endif %}
+
+            <div>
+                <p>Town or City</p>
+                <p>{{ order.town_or_city }}</p>
+            </div>
+
+            <div>
+                <p>Street Address 1</p>
+                <p>{{ order.street_address1 }}</p>
+            </div>
+
+            {% if order.street_address2 %}
+            <div>
+                <p>Street Address 2</p>
+                <p>{{ order.street_address2 }}</p>
+            </div>
+            {% endif %} {% if order.county %}
+
+            <div>
+                <p>County</p>
+                <p>{{ order.county }}</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <div
+            id="customer-success-order-card"
+            class="px-4 py-6 mb-5 rounded-md shadow-md"
+        >
+            <div class="pb-2 border-b-2 border-purple-700">
+                <h1>Order Ammount:</h1>
+            </div>
+
+            <div>
+                <p>Order Total</p>
+                <p>€ {{ order.order_total }}</p>
+            </div>
+
+            <div>
+                <p>Delivery</p>
+                <p>{{ order.delivery_cost }}</p>
+            </div>
+
+            <div>
+                <p>Grand Total</p>
+                <p>€ {{ order.grand_total }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
