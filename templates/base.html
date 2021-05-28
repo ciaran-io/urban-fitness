@@ -1,7 +1,7 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html class="h-full" lang="en">
     <head>
         {% block meta %}
         <meta charset="UTF-8" />
@@ -27,7 +27,7 @@
         <title>Urban Fitness {% block extra_title %} {% endblock %}</title>
     </head>
 
-    <body class="mx-auto max-w-7xl bg-primary font-body">
+    <body class="flex flex-col min-h-full mx-auto max-w-7xl bg-primary font-body">
         {% load active_link_tags %}
 
         <header>
@@ -42,7 +42,7 @@
         {% endblock %}
 
         <footer
-            class="hidden p-5 mb-20 border-t-2 border-headings mt-11 lg:flex"
+            class="hidden p-5 mt-auto border-t-2 border-headings md:flex"
         >
             <div>
                 <h1 class="pb-6 text-2xl font-logo">Urban Fitness</h1>
