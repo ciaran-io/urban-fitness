@@ -1,11 +1,12 @@
 module.exports = {
   mode: 'jit',
     purge: [
-      './home/templates/home/**/*.html',
-      './products/templates/products/**/*.html',
-      './cart/templates/cart/**/*.html',
-      './checkout/templates/checkout/**/*.html',
-      './templates/**/*.html',
+      '../templates/**/*.html',
+      '../home/templates/home/**/*.html',
+      '../products/templates/products/**/*.html',
+      '../cart/templates/cart/**/*.html',
+      '../checkout/templates/checkout/**/*.html',
+      '../users/templates/users/**/*.html',
     ],
     darkMode: false, // or 'media' or 'class'
     theme: {
