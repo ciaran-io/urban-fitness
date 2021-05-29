@@ -1,10 +1,7 @@
 {% load active_link_tags %}
 
-<section>
-    <div
-        id="mobile-footer"
-        class="fixed bottom-0 z-50 w-full border-t border-gray-200 bg-headings md:hidden"
-    >
+<section class="md:hidden ">
+    <div id="mobile-footer" class="fixed bottom-0 z-50 w-full border-t border-gray-200 bg-headings">
         <ul
             class="grid items-center justify-between w-10/12 h-16 max-w-xl grid-flow-col mx-auto border-headings"
         >
@@ -35,12 +32,21 @@
             </li>
             <!-- users profile link -->
             <li>
-                <a href="">
-                    <span>
-                        <i class="fas fa-user-alt {% active_link 'active' strict=True %}"></i>
-                    </span>
-                    <span class="{% active_link 'profile' 'mobile-menu-active' strict=True %}"></span>
-                </a>
+                {% if request.user.is_authenticated %}
+                    <a href="{% url 'user_profile' %}">
+                        <span>
+                            <i class="fas fa-user-alt {% active_link 'user_profile' 'active' strict=True %}"></i>
+                        </span>
+                        <span class="{% active_link 'user_profile' 'mobile-menu-active' strict=True %}"></span>
+                    </a>
+                    {% else %}
+                    <a class="!border-0" href="{% url 'account_login' %}">
+                        <span>
+                            <i class="fas fa-user-alt {% active_link 'account_login' 'active' strict=True %}"></i>
+                        </span>
+                        <span class="{% active_link 'account_login' 'mobile-menu-active' strict=True %}"></span>
+                    </a>
+                    {% endif%}
             </li>
             <!-- mobile menu button -->
             <li>
