@@ -36,9 +36,8 @@ const searchIconCloseDesktop = document.getElementById('search-icon-close-deskto
 const searchFieldDesktop = document.getElementById('search-form-desktop');
 
 const displaySearchDesktop = () => {
-        searchBoxDesktop.classList.toggle('hidden');
-        searchIconDesktop.classList.toggle('hidden');
-        searchIconCloseDesktop.classList.toggle('hidden');
-        searchFieldDesktop.focus();
+    searchBoxDesktop.classList.toggle('hidden');
+    searchIconDesktop.classList.toggle('hidden');
+    searchIconCloseDesktop.classList.toggle('hidden');
+    searchFieldDesktop.focus();
 };
-
