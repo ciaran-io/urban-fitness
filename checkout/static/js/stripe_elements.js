@@ -52,10 +52,8 @@ form.addEventListener('submit', function (event) {
     event.preventDefault();
     card.update({ disabled: true });
     submitButton.disabled = true;
-
-    var saveInfo = Boolean(
-        document.querySelector('#id-save-info:checked').value
-    );
+    
+    var saveInfo = Boolean(document.querySelector('#id-save-info').checked);
     // From using {% csrf_token %} in the form
     var csrfToken = document.querySelector(
         'input[name="csrfmiddlewaretoken"]'
