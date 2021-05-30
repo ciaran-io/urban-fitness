@@ -12,7 +12,7 @@ from users.models import UserProfile
 
 class Order(models.Model):
     user_profile = models.ForeignKey(
-        UserProfile, on_delete=models.SET_NULL, null=True, blank=True, related_name='orders')
+    UserProfile, on_delete=models.SET_NULL, null=True, blank=True, related_name='orders')
     order_number = models.CharField(max_length=32, null=False, editable=False)
     full_name = models.CharField(max_length=50, null=False, blank=False)
     email = models.EmailField(max_length=254, null=False, blank=False)
@@ -45,7 +45,7 @@ class Order(models.Model):
         accounting for delivery costs.
         """
         self.order_total = self.lineitems.aggregate(Sum('lineitem_total'))[
-            'lineitem_total__sum']
+            'lineitem_total__sum'] or 0
         if self.order_total < settings.FREE_DELIVERY_THRESHOLD:
             self.delivery_cost = settings.STANDARD_DELIVERY_CHARGE
         else:
