@@ -4,6 +4,7 @@ module.exports = {
       '../templates/**/*.html',
       '../home/templates/home/**/*.html',
       '../products/templates/products/**/*.html',
+      '../products/**/*.py',
       '../cart/templates/cart/**/*.html',
       '../checkout/templates/checkout/**/*.html',
       '../users/templates/users/**/*.html',
