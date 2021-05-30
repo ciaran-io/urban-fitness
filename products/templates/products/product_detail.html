@@ -1,9 +1,9 @@
 {% extends "base.html" %} {% load static %} {% block content %}
 
 <!-- main content -->
-<main class="pt-3 bg-white px-3 pb-[160px]">
-    <!-- product container -->
-    <div class="grid grid-flow-row gap-4">
+<section class="pt-3 bg-white px-3 pb-[160px] rounded-md">
+    <!-- product container for mobile -->
+    <div class="grid grid-flow-row gap-4 md:hidden">
         <div>
             <span class="font-bold">{{ product.name }}</span>
         </div>
@@ -12,10 +12,7 @@
         <div class="pl-0">
             {% if product.image %}
             <a href="{% url 'product_detail' product.id %}">
-                <img
-                    class="object-contain w-full h-auto rounded-md"
-                    src="{{ product.image.url }}"
-                />
+                <img class="object-contain h-auto rounded-md w-[300px]" src="{{ product.image.url }}"/>
             </a>
             {% else %}
             <a href="{% url 'product_detail' product.id %}">
@@ -35,11 +32,7 @@
         </div>
         <hr />
         <div>
-            <form
-                class="w-full"
-                action="{% url 'add_to_cart' product.id %}"
-                method="POST"
-            >
+            <form class="w-full" action="{% url 'add_to_cart' product.id %}"method="POST">
                 {% csrf_token %}
                 <!-- product quantity ammount container -->
                 <div class="grid gap-6 pb-8 place-content-start grid-col">
@@ -55,12 +48,8 @@
                             data-item_id="{{ product.id }}"
                             id="decrement-qty_{{ product.id }}"
                         >
-                            <span
-                                class="px-3 py-2 font-bold border border-gray-300 rounded-md"
-                            >
-                                <i
-                                    class="text-purple-700 fas fa-minus fa-sm"
-                                ></i>
+                            <span class="px-3 py-2 font-bold border border-gray-300 rounded-md">
+                                <i class="text-purple-700 fas fa-minus fa-sm"></i>
                             </span>
                         </button>
                         <div>
@@ -76,45 +65,31 @@
                             />
                         </div>
                         <!-- button add quantity -->
-
                         <button
                             class="increment-qty"
                             data-item_id="{{ product.id }}"
                             id="increment-qty_{{ product.id }}"
                         >
-                            <span
-                                class="px-3 py-2 font-bold border border-gray-300 rounded-md"
-                            >
-                                <i
-                                    class="text-purple-700 fas fa-plus fa-sm"
-                                ></i>
+                            <span class="px-3 py-2 font-bold border border-gray-300 rounded-md">
+                                <i class="text-purple-700 fas fa-plus fa-sm"></i>
                             </span>
                         </button>
                     </div>
                 </div>
                 <!-- free shipping ammount to spend -->
-                <div class="">
-                    <p class="pb-1 border-b-2 border-gray-300 text-headings">
-                        <span class="font-bold text-purple-700"
-                            >Free Shipping</span
-                        >
-                        when you spend €20.24+
+                <div>
+                    <p>
+                        <span class="font-bold text-purple-700">Free Shipping</span>
+                        when you spend over €50
                     </p>
                 </div>
                 <!-- add to cart -->
-                <div class="fixed bottom-[65px] left-0 bg-white w-full">
-                    <div
-                        class="relative grid grid-cols-[50px,1fr] px-2 py-2 items-center gap-2"
-                    >
+                <div class="fixed bottom-[65px] left-0 bg-white w-full md:hidden">
+                    <div class="relative grid grid-cols-[50px,1fr] px-2 py-2 items-center gap-2">
                         <div class="h-full border border-purple-700 rounded-md">
-                            <a
-                                href="{% url 'products' %}"
-                                class="grid h-full place-items-center"
-                            >
+                            <a href="{% url 'products' %}" class="grid h-full place-items-center">
                                 <span>
-                                    <i
-                                        class="text-purple-700 fas fa-chevron-left"
-                                    ></i>
+                                    <i class="text-purple-700 fas fa-chevron-left"></i>
                                 </span>
                             </a>
                         </div>
@@ -137,14 +112,125 @@
 
         <hr class="pb-4" />
     </div>
+
+     <!-- product container for medium and large screens -->
+     <div class="hidden grid-flow-col mb-10 md:grid">
+         <div>
+             <h1 class="pb-5 text-xl text-purple-700">
+                 {{ product.name }}
+                </h1>
+                <!-- product image -->
+            {% if product.image %}
+            <img
+                class="object-contain w-[450px] h-auto border border-gray-100 rounded-md"
+                src="{{ product.image.url }}"
+            />
+            {% else %}
+            <img
+                class="w-[450px] h-[450px] object-contain border border-gray-100 rounded-md"
+                src="{{ MEDIA_URL }}placeholder-images-image_large.png"
+                alt="{{ product.name }}"
+            />
+            {% endif %}
+        </div>
+
+        <!-- product price / add to cart container -->
+        <div class="p-5 mt-10 rounded-md shadow-md h-[min-content]">
+            <div class="flex justify-between pb-5">
+                <span>Price</span>
+                <span class="text-lg font-bold">€{{ product.price }}</span>
+            </div>
+            <div>
+                <form
+                    class="w-full"
+                    action="{% url 'add_to_cart' product.id %}"
+                    method="POST"
+                >
+                    {% csrf_token %}
+                    <!-- product quantity ammount container -->
+                    <div class="grid gap-6 pb-8 place-content-start grid-col">
+                        <!-- product quantity title-->
+                        <div>
+                            <span class="font-bold text-headings">Quantity</span>
+                        </div>
+                        <!-- product quantity ammounts -->
+                        <div class="grid gap-2 grid-cols-[40px,80px,40px]">
+                            <!-- button subtract quantity -->
+                            <button
+                                class="decrement-qty"
+                                data-item_id="{{ product.id }}"
+                                id="decrement-qty_{{ product.id }}"
+                            >
+                                <span class="px-3 py-2 font-bold border border-gray-300 rounded-md">
+                                    <i class="text-purple-700 fas fa-minus fa-sm"></i>
+                                </span>
+                            </button>
+                            <div>
+                                <input
+                                    class="w-full px-5 py-2 font-bold text-center border border-gray-300 rounded-md appearance-none"
+                                    type="number"
+                                    name="quantity"
+                                    value="1"
+                                    min="1"
+                                    max="10"
+                                    data-item_id="{{ product.id }}"
+                                    id="increment-qty_{{ product.id }}"
+                                />
+                            </div>
+                            <!-- button add quantity -->
+                            <button
+                                class="increment-qty"
+                                data-item_id="{{ product.id }}"
+                                id="increment-qty_{{ product.id }}"
+                            >
+                                <span class="px-3 py-2 font-bold border border-gray-300 rounded-md">
+                                    <i class="text-purple-700 fas fa-plus fa-sm"></i>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- free shipping ammount to spend -->
+                    <div >
+                        <p>
+                            <span class="font-bold text-purple-700">Free Shipping</span>
+                            when you spend over €50
+                        </p>
+                    </div>
+                    <!-- add to cart -->
+                        <div class=" grid grid-cols-[50px,1fr] px-2 py-2 items-center gap-2 w-full bg-white pt-8">
+                            <div class="h-full border border-purple-700 rounded-md">
+                                <a href="{% url 'products' %}" class="grid h-full place-items-center">
+                                    <span>
+                                        <i class="text-purple-700 fas fa-chevron-left"></i>
+                                    </span>
+                                </a>
+                            </div>
+                            <div>
+                                <input
+                                    type="submit"
+                                    class="w-full py-3 text-center text-white bg-purple-700 rounded-md"
+                                    value="Add to cart"
+                                />
+                            </div>
+                        </div>
+                    <input
+                        type="hidden"
+                        name="redirect_url"
+                        value="{{ request.path }}"
+                    />
+                </form>
+            </div>
+        </div>
+
+     </div>
     <!-- product description -->
     <div>
-        <span class="pb-2 font-extrabold border-b-2 border-purple-700"
-            >Decription</span
-        >
+        <h1 class="pb-2 font-extrabold border-b-2 border-purple-700">
+            Decription
+        </h1>
         <p class="pt-4">{{ product.description }}</p>
     </div>
-</main>
+</section>
 
 {% endblock %}
 
