@@ -120,7 +120,7 @@ footer mobile
     width: 46px;
     height: 5px;
     bottom: 0px;
-    margin-left: -12px;
+    margin-left: -30px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     background-color: #ffb98a;
@@ -181,8 +181,6 @@ stripe form
     padding-bottom: 5px;
 } 
  
-
-
 /* =================
 checkout form input
 ================= */
@@ -198,22 +196,91 @@ form#payment-form input {
     pb-2 text-xs;
 }
 
-
-
 #customer-success-details-card div, #customer-success-order-card div {
     @apply
-    flex
-    justify-between
-    py-3;
+    flex justify-between py-3;
 }
 
 #customer-success-details-card :not(:first-child):not(:last-child) {
     @apply
-    border-b
-    border-gray-200;
+    border-b border-gray-200;
 }
 
 #customer-success-details-card p {
     @apply
     text-gray-900;
+}
+
+/* =============================
+allauth sign-up / sign-in styles
+================================= */
+
+/* ================= Allauth section form ================= */
+
+.allauth-section-form {
+    @apply
+    p-4 mx-4 mt-6 mb-[80px] bg-white shadow-md rounded-xl;
+}
+
+.allauth-section-form h1{
+    @apply
+    pb-4 text-2xl text-center text-purple-700 font-alt-font;
+}
+
+.allauth-section-form p{
+    @apply
+    py-2 text-gray-700;
+}
+
+div.allauth-signin-login {
+    @apply
+    pb-6;
+}
+
+.allauth-section-form a[href^="/accounts/signup"], a[href^="/accounts/login"]  {
+    @apply
+    font-bold text-purple-700 border-b-2 border-gray-900;
+}
+
+/* ================= Allauth form ================= */
+form.allauth-form {
+    @apply
+    grid gap-4;
+}
+
+form.allauth-form input {
+    @apply
+    p-2 border-2 border-gray-400 rounded-md focus:outline-none focus:border-purple-700;
+}
+/* :not(:first-child) */
+form.allauth-form p {
+    @apply
+    grid grid-flow-row gap-1;
+}
+
+/* ================= Allauth forgot password / signin buttons ================= */
+form.allauth-form div {
+    @apply
+    grid h-12 grid-flow-col gap-2 mt-3 text-white;
+}
+
+form.allauth-form div > a{
+    @apply
+    grid bg-purple-900 rounded-md place-items-center ;
+}
+
+form.allauth-form  button, input[type="submit"]{
+    border: 0px!important;
+    @apply
+    h-12 text-white bg-purple-700 rounded-md;
+}
+
+/* =============================
+users profile
+================================= */
+
+#profile-update-form input{
+    @apply
+    p-2 border-2 border-gray-400 rounded-md focus:outline-none focus:border-purple-700;
+
 }
