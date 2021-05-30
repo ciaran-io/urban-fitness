@@ -1136,9 +1136,6 @@ video {
 .pl-0{
 	padding-left: 0px;
 }
-.pb-1{
-	padding-bottom: 0.25rem;
-}
 .pb-5{
 	padding-bottom: 1.25rem;
 }
@@ -1153,6 +1150,9 @@ video {
 }
 .pb-\[150px\]{
 	padding-bottom: 150px;
+}
+.pb-1{
+	padding-bottom: 0.25rem;
 }
 .text-center{
 	text-align: center;
