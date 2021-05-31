@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 import os
+import dj_database_url
 
 from pathlib import Path
 
@@ -30,7 +31,7 @@ SECRET_KEY = 'django-insecure-%0czd!q6gn#v_w^&^%1a@xh2#e8escs#(pm2p1=8$n!rhle0y*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['urbanfitness.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -50,6 +51,7 @@ INSTALLED_APPS = [
     'products',
     'cart',
     'checkout',
+    'users',
     'active_link',
 ]
 
@@ -113,12 +115,17 @@ WSGI_APPLICATION = 'urbanfitness.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if 'DATABASE_URL' in os.environ:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
 
 # Password validation
@@ -176,3 +183,5 @@ STANDARD_DELIVERY_CHARGE = 5
 STRIPE_CURRENCY = 'eur'
 STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
+STRIPE_WEBHOOK_SECRET = os.getenv('STRIPE_WEBHOOK_KEY', '')
+DEFAULT_FROM_EMAIL = 'urbanfitness@example.com'
